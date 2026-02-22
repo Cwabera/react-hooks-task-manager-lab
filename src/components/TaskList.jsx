@@ -1,22 +1,21 @@
-import React, { useContext,useState } from "react";
-import { TaskContext } from "../context/TaskContext";
+import { useTasks } from "../context/TaskContext";
 
-function TaskList({query}) {
-    const [tasks, setTasks] = useState([]);
-    const filteredTasks = tasks.filter(task =>
-    task.title.toLowerCase().includes(query.toLowerCase())
-  );
+function TaskList() {
+  const { tasks, toggleTask } = useTasks();
 
   return (
     <ul>
-      {filteredTasks.map((task) => (
+      {tasks.map(task => (
         <li key={task.id}>
-          <span style={{ textDecoration: task.completed ? "line-through" : "none" }}>
-            {task.title}
+          <span
+            onClick={() => toggleTask(task.id)}
+            style={{
+              textDecoration: task.completed ? "line-through" : "none",
+              cursor: "pointer"
+            }}
+          >
+            {task.text}
           </span>
-          <button data-testid={task.id}>
-            {task.completed ? "Undo" : "Complete"}
-          </button>
         </li>
       ))}
     </ul>

@@ -8,14 +8,19 @@ function TaskList() {
       {tasks.map(task => (
         <li key={task.id}>
           <span
-            onClick={() => toggleTask(task.id)}
             style={{
-              textDecoration: task.completed ? "line-through" : "none",
-              cursor: "pointer"
+              textDecoration: task.completed ? "line-through" : "none"
             }}
           >
-            {task.text}
+            {task.title}
           </span>
+
+          <button
+            data-testid={task.id}
+            onClick={() => toggleTask(task.id)}
+          >
+            {task.completed ? "Undo" : "Complete"}
+          </button>
         </li>
       ))}
     </ul>
